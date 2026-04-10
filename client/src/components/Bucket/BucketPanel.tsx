@@ -70,8 +70,7 @@ export function BucketPanel({ open, onClose, onCountChange }: BucketPanelProps) 
     <>
       {/* Backdrop */}
       {open && (
-        <div className="fixed inset-0 z-30 bg-black/30" onClick={onClose} />
-      )}
+<div className="fixed inset-0 top-16 z-30 bg-black/30" onClick={onClose} />      )}
 
       {/* Panel */}
       <div className={`fixed top-16 right-0 h-[calc(100vh-4rem)] z-40 w-80 md:w-96
