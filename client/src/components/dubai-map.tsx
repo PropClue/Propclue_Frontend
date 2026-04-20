@@ -104,33 +104,56 @@ const DubaiMap: React.FC<DubaiMapProps> = ({
     return stats.find((s) => normalizeName(s.area) === normalized);
   };
 
+  // // Load GeoJSON data dynamically based on the city
+  // useEffect(() => {
+  //   let mapFile = "/Dubai_map.json"; // default
+
+  //   const cityLower = city?.toLowerCase() || "";
+  //   if (cityLower === "mumbai") mapFile = "/Mumbai.json";
+  //   else if (cityLower === "bangalore" || cityLower === "Bangalore")
+  //     mapFile = "/Bangalore.json";
+  //   else if (cityLower === "pune") mapFile = "/Pune.json";
+  //   else if (cityLower === "ahmedabad") mapFile = "/Ahmedabad.json";
+  //   else if (cityLower === "hyderabad") mapFile = "/Hyderabad.json";
+  //   else if (
+  //     cityLower === "delhi" ||
+  //     cityLower === "gurugram" ||
+  //     cityLower === "gurgaon" ||
+  //     cityLower === "new delhi" ||
+  //     cityLower === "noida"
+  //   )
+  //     mapFile = "/Delhi.json";
+
+  //   setGeoData(null); // Reset while loading
+
+  //   fetch(mapFile)
+  //     .then((res) => res.json())
+  //     .then((data) => setGeoData(data))
+  //     .catch((err) =>
+  //       console.error(`Map data fetch error for ${mapFile}:`, err),
+  //     );
+  // }, [city]);
+
   // Load GeoJSON data dynamically based on the city
   useEffect(() => {
     let mapFile = "/Dubai_map.json"; // default
-
     const cityLower = city?.toLowerCase() || "";
+ 
     if (cityLower === "mumbai") mapFile = "/Mumbai.json";
-    else if (cityLower === "bangalore" || cityLower === "Bangalore")
-      mapFile = "/Bangalore.json";
+    else if (cityLower === "bangalore") mapFile = "/Bangalore.json";
     else if (cityLower === "pune") mapFile = "/Pune.json";
     else if (cityLower === "ahmedabad") mapFile = "/Ahmedabad.json";
     else if (cityLower === "hyderabad") mapFile = "/Hyderabad.json";
-    else if (
-      cityLower === "delhi" ||
-      cityLower === "gurugram" ||
-      cityLower === "new delhi" ||
-      cityLower === "noida"
-    )
-      mapFile = "/Delhi.json";
-
-    setGeoData(null); // Reset while loading
-
+    else if (cityLower === "gurgaon" || cityLower === "gurugram") mapFile = "/gurgaon.json";
+    else if (cityLower === "noida") mapFile = "/noida.json";
+    else if (cityLower === "delhi" || cityLower === "new delhi") mapFile = "/Delhi.json";
+ 
+    setGeoData(null);
+ 
     fetch(mapFile)
       .then((res) => res.json())
       .then((data) => setGeoData(data))
-      .catch((err) =>
-        console.error(`Map data fetch error for ${mapFile}:`, err),
-      );
+      .catch((err) => console.error(`Map data fetch error for ${mapFile}:`, err));
   }, [city]);
 
   useEffect(() => {
@@ -170,15 +193,16 @@ const DubaiMap: React.FC<DubaiMapProps> = ({
       } else if (cityLower === "hyderabad") {
         center = [17.385, 78.4867];
         zoom = 11;
-      } else if (
-        cityLower === "delhi" ||
-        cityLower === "gurugram" ||
-        cityLower === "new delhi" ||
-        cityLower === "noida"
-      ) {
-        center = [28.6139, 77.209];
-        zoom = 10;
-      }
+      } else if (cityLower === "gurgaon" || cityLower === "gurugram") {
+        center = [28.4595, 77.0266];
+        zoom = 11;
+      } else if (cityLower === "noida") {
+        center = [28.5355, 77.391];
+        zoom = 11;
+      } else if (cityLower === "delhi" || cityLower === "new delhi") {
+        center = [28.6139, 77.209];
+        zoom = 10;
+      }
 
       const map = L.map(containerRef.current, {
         zoomControl: false,
@@ -238,15 +262,16 @@ const DubaiMap: React.FC<DubaiMapProps> = ({
     } else if (cityLower === "hyderabad") {
       center = [17.385, 78.4867];
       zoom = 11;
-    } else if (
-      cityLower === "delhi" ||
-      cityLower === "gurugram" ||
-      cityLower === "new delhi" ||
-      cityLower === "noida"
-    ) {
-      center = [28.6139, 77.209];
-      zoom = 10;
-    }
+    } else if (cityLower === "gurgaon" || cityLower === "gurugram") {
+        center = [28.4595, 77.0266];
+        zoom = 11;
+      } else if (cityLower === "noida") {
+        center = [28.5355, 77.391];
+        zoom = 11;
+      } else if (cityLower === "delhi" || cityLower === "new delhi") {
+        center = [28.6139, 77.209];
+        zoom = 10;
+      }
 
     mapRef.current.setView(center, zoom);
   }, [city]);
